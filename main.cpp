@@ -4,7 +4,10 @@
 using namespace std;
 
 string placement(int horizontal, int vertical) {
-    char horizontalLetters[26] = ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I');
+    char horizontalLetters[26] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+    int verticalNumbers[26] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26};
+    string placementName = to_string(horizontalLetters[horizontal]) + to_string(verticalNumbers[vertical]);
+    return placementName;
 }
 
 void newChart() {
