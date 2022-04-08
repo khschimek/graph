@@ -24,17 +24,17 @@ void displayChart(int horizontal, int vertical, string chart[], string chartName
         string output;
         cout << "How do you want to display your graph? [math] [basic] ";
         cin >> output;
-        if(output == "") {
-            mathbasic = "";
+        if(output == "math") {
+            mathbasic = "math";
             break;
         }
-        else if(output == "") {
-            mathbasic = "";
+        else if(output == "basic") {
+            mathbasic = "basic";
             break;
         }
         cout << "Incorrect Input" << endl;
     }
-    if(mathbasic == "") {
+    if(mathbasic == "math") {
         mathDisplay(horizontal, vertical, chart, chartNames);
     }
     else {
@@ -43,7 +43,7 @@ void displayChart(int horizontal, int vertical, string chart[], string chartName
 }
 
 void modifyChart(int horizontal, int vertical, string chart[], string chartNames[]) {
-    int countDown = 1;
+    int countDown = 0;
     while(countDown<=horizontal*vertical) {
         cout << chartNames[countDown] << " ";
         if(countDown%horizontal==0) {
@@ -51,6 +51,30 @@ void modifyChart(int horizontal, int vertical, string chart[], string chartNames
         }
         countDown+=1;
     }
+    int spot = 0;
+    string choice;
+    while(true) {
+        cout << "What spot do you want to modify? ";
+        string truefalse = "false";
+        cin >> choice;
+        for(spot; spot<=horizontal*vertical; spot++) {
+            if(chartNames[spot]==choice) {
+                truefalse = "true";
+                break;
+            }
+        }
+        if(truefalse=="true") {
+            break;
+        }
+        cout << "Incorrect Input";
+    }
+    cout << choice << " is: "  << chart[spot] << endl;
+    string newInput;
+    cout << "What do you want " << choice << " to be? ";
+    cin >> newInput;
+    chart[spot]="newInput";
+    cout << choice << " is now: " << newInput << endl;
+    working(horizontal, vertical, chart, chartNames);
 }
 
 void working(int horizontal, int vertical, string chart[], string chartNames[]) {
