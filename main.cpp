@@ -3,10 +3,12 @@
 
 using namespace std;
 
+void working(int horizontal, int vertical, string chart[], string chartNames[]);
+
 string placement(int horizontal, int vertical) {
-    char horizontalLetters[26] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+    string horizontalLetters[26] = {"A ", "B ", "C ", "D ", "E ", "F ", "G ", "H ", "I ", "J ", "K ", "L ", "M ", "N ", "O ", "P ", "Q ", "R ", "S ", "T ", "U ", "V ", "W ", "X ", "Y ", "Z "};
     string verticalNumbers[26] = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26"};
-    string placementName = to_string(horizontalLetters[horizontal]) + verticalNumbers[vertical];
+    string placementName = horizontalLetters[horizontal-1] + verticalNumbers[vertical-1];
     return placementName;
 }
 
@@ -15,7 +17,20 @@ void mathDisplay(int horizontal, int vertical, string chart[], string chartNames
 }
 
 void basicDisplay(int horizontal, int vertical, string chart[], string chartNames[]) {
-
+    int countDown = 0;
+    int countDownPlus = 1;
+    while(countDown<=horizontal*vertical) {
+        cout << chart[countDown] << " ";
+        if(countDownPlus%horizontal==0) {
+            cout << endl;
+        }
+        countDownPlus+=1;
+        countDown+=1;
+    }
+    string enter;
+    cout << "Press enter to go back.";
+    cin >> enter;
+    working(horizontal, vertical, chart, chartNames);
 }
 
 void displayChart(int horizontal, int vertical, string chart[], string chartNames[]) {
@@ -43,12 +58,14 @@ void displayChart(int horizontal, int vertical, string chart[], string chartName
 }
 
 void modifyChart(int horizontal, int vertical, string chart[], string chartNames[]) {
-    int countDown = 0;
+   int countDown = 0;
+    int countDownPlus = 1;
     while(countDown<=horizontal*vertical) {
         cout << chartNames[countDown] << " ";
-        if(countDown%horizontal==0) {
+        if(countDownPlus%horizontal==0) {
             cout << endl;
         }
+        countDownPlus+=1;
         countDown+=1;
     }
     int spot = 0;
@@ -56,7 +73,7 @@ void modifyChart(int horizontal, int vertical, string chart[], string chartNames
     while(true) {
         cout << "What spot do you want to modify? ";
         string truefalse = "false";
-        cin >> choice;
+        getline(cin, choice);
         for(spot; spot<=horizontal*vertical; spot++) {
             if(chartNames[spot]==choice) {
                 truefalse = "true";
@@ -64,9 +81,10 @@ void modifyChart(int horizontal, int vertical, string chart[], string chartNames
             }
         }
         if(truefalse=="true") {
+            cout << "truefalse true" << endl;
             break;
         }
-        cout << "Incorrect Input";
+        cout << "Incorrect Input" << endl;
     }
     cout << choice << " is: "  << chart[spot] << endl;
     string newInput;
