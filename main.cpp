@@ -19,7 +19,7 @@ void mathDisplay(int horizontal, int vertical, string chart[], string chartNames
 void basicDisplay(int horizontal, int vertical, string chart[], string chartNames[]) {
     int countDown = 0;
     int countDownPlus = 1;
-    while(countDown<=horizontal*vertical) {
+    while(countDown<horizontal*vertical) {
         cout << chart[countDown] << " ";
         if(countDownPlus%horizontal==0) {
             cout << endl;
@@ -27,9 +27,6 @@ void basicDisplay(int horizontal, int vertical, string chart[], string chartName
         countDownPlus+=1;
         countDown+=1;
     }
-    string enter;
-    cout << "Press enter to go back.";
-    cin >> enter;
     working(horizontal, vertical, chart, chartNames);
 }
 
@@ -58,9 +55,9 @@ void displayChart(int horizontal, int vertical, string chart[], string chartName
 }
 
 void modifyChart(int horizontal, int vertical, string chart[], string chartNames[]) {
-   int countDown = 0;
+    int countDown = 0;
     int countDownPlus = 1;
-    while(countDown<=horizontal*vertical) {
+    while(countDown<horizontal*vertical) {
         cout << chartNames[countDown] << " ";
         if(countDownPlus%horizontal==0) {
             cout << endl;
@@ -69,29 +66,33 @@ void modifyChart(int horizontal, int vertical, string chart[], string chartNames
         countDown+=1;
     }
     int spot = 0;
-    string choice;
+    string choice1;
+    string choice2;
+    string choice3;
     while(true) {
         cout << "What spot do you want to modify? ";
         string truefalse = "false";
-        getline(cin, choice);
-        for(spot; spot<=horizontal*vertical; spot++) {
-            if(chartNames[spot]==choice) {
+        cin >> choice1 >> choice2;
+        choice3 = choice1 + " " + choice2;
+        for(spot=0; spot<=horizontal*vertical; spot++) {
+            if(chartNames[spot]==choice3) {
                 truefalse = "true";
                 break;
             }
         }
         if(truefalse=="true") {
-            cout << "truefalse true" << endl;
             break;
         }
         cout << "Incorrect Input" << endl;
     }
-    cout << choice << " is: "  << chart[spot] << endl;
+    cout << choice3 << " is: "  << chart[spot] << endl;
     string newInput;
-    cout << "What do you want " << choice << " to be? ";
-    cin >> newInput;
-    chart[spot]="newInput";
-    cout << choice << " is now: " << newInput << endl;
+    cout << "What do you want " << choice3 << " to be? ";
+    string fake;
+    getline(cin, fake);
+    getline(cin, newInput);
+    chart[spot]=newInput;
+    cout << choice3 << " is now: " << newInput << endl;
     working(horizontal, vertical, chart, chartNames);
 }
 
