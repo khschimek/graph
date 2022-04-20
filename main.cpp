@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <string>
 
 using namespace std;
 
@@ -12,8 +13,57 @@ string placement(int horizontal, int vertical) {
     return placementName;
 }
 
-void mathDisplay(int horizontal, int vertical, string chart[], string chartNames[]) {
+string basicToMath(string basic) {
+    char part;
+    int placement = 0;
+    string parts[100];
+    for(int i=0; i<basic.length(); i++) {
+        part = basic[i];
+        if(part == ' ') {
+            placement += 1;
+            continue;
+        }
+        else if(part == '#') {
+            i<basic.length();
+            continue;
+        }
+        else {
+            parts[placement] += part;
+        }
+    }
+    if(parts[2] == "+") {
+        int number = stoi(parts[0]) + stoi(parts[1]);
+        parts[0] = to_string(number);
+    }
+    else if(parts[2] == "-") {
+        int number = stoi(parts[0]) - stoi(parts[1]);
+        parts[0] = to_string(number);
+    }
+    else if(parts[2] == "*") {
+        int number = stoi(parts[0]) * stoi(parts[1]);
+        parts[0] = to_string(number);
+    }
+    else if(parts[2] == "/") {
+        int number = stoi(parts[0]) / stoi(parts[1]);
+        parts[0] = to_string(number);
+    }
+    return parts[0];
+}
 
+void mathDisplay(int horizontal, int vertical, string chart[], string chartNames[]) {
+    string basic;
+    int countDown = 0;
+    int countDownPlus = 1;
+    while(countDown<horizontal*vertical) {
+        basic = chart[countDown];
+        cout << basicToMath(basic) << " ";
+        if(countDownPlus%horizontal==0) {
+            cout << endl;
+        }
+        countDownPlus+=1;
+        countDown+=1;
+    }
+    working(horizontal, vertical, chart, chartNames);
 }
 
 void basicDisplay(int horizontal, int vertical, string chart[], string chartNames[]) {
@@ -87,6 +137,8 @@ void modifyChart(int horizontal, int vertical, string chart[], string chartNames
     }
     cout << choice3 << " is: "  << chart[spot] << endl;
     string newInput;
+    cout << "End the line with: # " << endl;
+    cout << "If you want to make a math formula, do: A B + # " << endl;
     cout << "What do you want " << choice3 << " to be? ";
     string fake;
     getline(cin, fake);
