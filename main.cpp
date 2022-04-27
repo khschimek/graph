@@ -148,44 +148,62 @@ void modifyChart(int horizontal, int vertical, string chart[], string chartNames
     working(horizontal, vertical, chart, chartNames);
 }
 
+void finishChart(int horizontal, int vertical, string chart[], string chartNames[]) {
+    string filename;
+    cout << "What do you want the file to be named? (Name it the same thing as the old file if you want to replace it) ";
+    cin >> filename;
+    ofstream fout(filename);
+    fout << horizontal << " " << vertical << endl;
+    int countDown = 0;
+    int countDownPlus = 1;
+    while(countDown<horizontal*vertical) {
+        fout << chart[countDown] << " ";
+        if(countDownPlus%horizontal==0) {
+            fout << endl;
+        }
+        countDownPlus+=1;
+        countDown+=1;
+    }
+}
+
 void working(int horizontal, int vertical, string chart[], string chartNames[]) {
-    string displaymodify;
+    string displaymodifyfinish;
     while(true) {
         string input;
-        cout << "What do you want to do? [display] [modify] ";
+        cout << "What do you want to do? [display] [modify] [finish] ";
         cin >> input;
         if(input == "display") {
-            displaymodify = "display";
+            displaymodifyfinish = "display";
             break;
         }
         else if(input == "modify") {
-            displaymodify = "modify";
+            displaymodifyfinish = "modify";
+            break;
+        }
+        else if(input == "finish") {
+            displaymodifyfinish = "finish";
             break;
         }
         cout << "Incorrect Input" << endl;
     }
-    if(displaymodify == "display") {
+    if(displaymodifyfinish == "display") {
         displayChart(horizontal, vertical, chart, chartNames);
     }
-    else {
+    else if(displaymodifyfinish == "modify") {
         modifyChart(horizontal, vertical, chart, chartNames);
+    }
+    else {
+        finishChart(horizontal, vertical, chart, chartNames);
     }
 }
 
 void newChart() {
-    cout << "What do you want to name your new chart? ";
-    string fileName;
-    cin >> fileName;
-    ofstream fout(fileName);
     int horizontal;
     int vertical;
     cout << "How many spaces horizontal do you want the graph to be? [1-26] ";
     cin >> horizontal;
-    fout << horizontal;
-    fout << " ";
     cout << "How many spaces vertical do you want the graph to be? [1-26] ";
     cin >> vertical;
-    fout << vertical;
     string chart[horizontal*vertical];
     string chartNames[horizontal*vertical];
     int chartPlacement = 0;
