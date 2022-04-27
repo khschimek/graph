@@ -138,7 +138,8 @@ void modifyChart(int horizontal, int vertical, string chart[], string chartNames
     cout << choice3 << " is: "  << chart[spot] << endl;
     string newInput;
     cout << "End the line with: # " << endl;
-    cout << "If you want to make a math formula, do: A B + # " << endl;
+    cout << "If you want to make a phrase, use _ instead of spaces" << endl;
+    cout << "If you want to make a math formula, do: A B + " << endl;
     cout << "What do you want " << choice3 << " to be? ";
     string fake;
     getline(cin, fake);
@@ -154,10 +155,12 @@ void finishChart(int horizontal, int vertical, string chart[], string chartNames
     cin >> filename;
     ofstream fout(filename);
     fout << horizontal << " " << vertical << endl;
+    string basic;
     int countDown = 0;
     int countDownPlus = 1;
     while(countDown<horizontal*vertical) {
-        fout << chart[countDown] << " ";
+        basic = chart[countDown];
+        fout << basicToMath(basic) << " ";
         if(countDownPlus%horizontal==0) {
             fout << endl;
         }
